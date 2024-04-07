@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Assignment3.Tests
 {
@@ -17,10 +18,10 @@ namespace Assignment3.Tests
         /// <param name="fileName"></param>
         public static void SerializeUsers(ILinkedListADT users, string fileName)
         {
-            DataContractSerializer serializer = new DataContractSerializer(typeof(List<User>));
+            BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = File.Create(fileName))
             {
-                serializer.WriteObject(stream, users);
+                formatter.Serialize(stream, users);
             }
         }
 
@@ -31,10 +32,10 @@ namespace Assignment3.Tests
         /// <returns>List of users</returns>
         public static ILinkedListADT DeserializeUsers(string fileName)
         {
-            DataContractSerializer serializer = new DataContractSerializer(typeof(List<User>));
+            BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = File.OpenRead(fileName))
             {
-                return (ILinkedListADT)serializer.ReadObject(stream);
+                return (SLL)formatter.Deserialize(stream);
             }
         }
     }

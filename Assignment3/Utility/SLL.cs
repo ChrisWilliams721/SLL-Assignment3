@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Assignment3
 {
-    
+    [Serializable]
     public class SLL : ILinkedListADT
     {
         
